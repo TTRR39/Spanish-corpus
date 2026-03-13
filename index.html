@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+
 <meta charset="UTF-8">
 <title>Spanish Corpus</title>
 
 <style>
 
 body{
-font-family: Arial;
+font-family:Arial;
 max-width:800px;
 margin:40px auto;
 }
@@ -16,17 +17,16 @@ input{
 width:100%;
 padding:10px;
 margin-bottom:20px;
-font-size:16px;
 }
 
 .entry{
 border-bottom:1px solid #ddd;
-padding:12px 0;
+padding:10px 0;
 }
 
-.date{
-color:gray;
-font-size:14px;
+.dateLink{
+display:block;
+padding:6px 0;
 }
 
 </style>
@@ -37,13 +37,16 @@ font-size:14px;
 
 <h1>📚 Spanish Chat Corpus</h1>
 
-<input type="text" id="search" placeholder="Search Spanish / English / notes">
+<input id="search" placeholder="Search corpus">
 
+<h2>Results</h2>
 <div id="results"></div>
+
+<h2>Browse by date</h2>
+<div id="dates"></div>
 
 <script src="data.js"></script>
 <script src="search.js"></script>
 
 </body>
-
 </html>
