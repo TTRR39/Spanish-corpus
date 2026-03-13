@@ -1,20 +1,22 @@
-const searchInput = document.getElementById("search");
-const resultsDiv = document.getElementById("results");
+const resultsDiv=document.getElementById("results");
+const searchInput=document.getElementById("search");
+const datesDiv=document.getElementById("dates");
 
 function displayResults(data){
 
 resultsDiv.innerHTML="";
 
-data.forEach(item => {
+data.forEach(item=>{
 
-const div = document.createElement("div");
+const div=document.createElement("div");
+
 div.className="entry";
 
-div.innerHTML = `
-<div class="date">${item.date} | ${item.source}</div>
-<div><b>Spanish:</b> ${item.text}</div>
-<div><b>English:</b> ${item.translation}</div>
-<div><i>${item.notes}</i></div>
+div.innerHTML=`
+<b>${item.date}</b><br>
+${item.text}<br>
+<i>${item.translation}</i><br>
+${item.notes}
 `;
 
 resultsDiv.appendChild(div);
@@ -25,18 +27,36 @@ resultsDiv.appendChild(div);
 
 displayResults(corpus);
 
-searchInput.addEventListener("input", function(){
+searchInput.addEventListener("input",function(){
 
-const query = this.value.toLowerCase();
+const q=this.value.toLowerCase();
 
-const filtered = corpus.filter(item =>
+const filtered=corpus.filter(item=>
 
-item.text.toLowerCase().includes(query) ||
-item.translation.toLowerCase().includes(query) ||
-item.notes.toLowerCase().includes(query)
+item.text.toLowerCase().includes(q) ||
+item.translation.toLowerCase().includes(q) ||
+item.notes.toLowerCase().includes(q)
 
 );
 
 displayResults(filtered);
+
+});
+
+const uniqueDates=[...new Set(corpus.map(x=>x.date))];
+
+uniqueDates.sort().reverse();
+
+uniqueDates.forEach(d=>{
+
+const link=document.createElement("a");
+
+link.href=`day.html?date=${d}`;
+
+link.textContent=d;
+
+link.className="dateLink";
+
+datesDiv.appendChild(link);
 
 });
