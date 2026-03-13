@@ -1,18 +1,23 @@
-const resultsDiv=document.getElementById("results");
-const searchInput=document.getElementById("search");
-const datesDiv=document.getElementById("dates");
+const resultsDiv = document.getElementById("results");
+const searchInput = document.getElementById("search");
+const datesDiv = document.getElementById("dates");
 
 function displayResults(data){
 
-resultsDiv.innerHTML="";
+resultsDiv.innerHTML = "";
 
-data.forEach(item=>{
+if(data.length === 0){
+resultsDiv.innerHTML = "<p>No results found</p>";
+return;
+}
 
-const div=document.createElement("div");
+data.forEach(item => {
 
-div.className="entry";
+const div = document.createElement("div");
 
-div.innerHTML=`
+div.className = "entry";
+
+div.innerHTML = `
 <b>${item.date}</b><br>
 ${item.text}<br>
 <i>${item.translation}</i><br>
@@ -25,13 +30,16 @@ resultsDiv.appendChild(div);
 
 }
 
-displayResults(corpus);
+searchInput.addEventListener("input", function(){
 
-searchInput.addEventListener("input",function(){
+const q = this.value.toLowerCase().trim();
 
-const q=this.value.toLowerCase();
+if(q === ""){
+resultsDiv.innerHTML = "";
+return;
+}
 
-const filtered=corpus.filter(item=>
+const filtered = corpus.filter(item =>
 
 item.text.toLowerCase().includes(q) ||
 item.translation.toLowerCase().includes(q) ||
@@ -43,19 +51,20 @@ displayResults(filtered);
 
 });
 
-const uniqueDates=[...new Set(corpus.map(x=>x.date))];
+
+const uniqueDates = [...new Set(corpus.map(x => x.date))];
 
 uniqueDates.sort().reverse();
 
-uniqueDates.forEach(d=>{
+uniqueDates.forEach(d => {
 
-const link=document.createElement("a");
+const link = document.createElement("a");
 
-link.href=`day.html?date=${d}`;
+link.href = `day.html?date=${d}`;
 
-link.textContent=d;
+link.textContent = d;
 
-link.className="dateLink";
+link.className = "dateLink";
 
 datesDiv.appendChild(link);
 
